@@ -1,49 +1,22 @@
 ﻿
-//1) Потрібно додати до масиву елемент на початок. 
-
-//Масив заповнити рандомними числами. Той елемент, що потрібно додати, також взяти рандомно.  Зробити методи, які в якості параметру приймають масив (вивід на екран, заповнення масиву елементами, додавання елементу на початок).
+//1) Знайти суму елементів масиву, які розміщуються на парних індексах
 class Program
 {
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.Unicode;
-        int[] array = new int[5]; 
-        ArrayRandomNumbers(array); // Метод заповнення масиву випадковими числами
-        OutputArray(array); // Метод виведення масиву 
-        int numberToAdd = GenerateRandomNumber(); //Метод генерації випадкового числа, яке будемо додавати на початок масиву
-        AddNumberToStart(array, numberToAdd); // Метод додавання елементу на початок масиву
-        OutputArray(array); // Виведення фінального масиву
-    }
-    static void ArrayRandomNumbers(int[] array)
-    {
-        Random random = new Random();
-        for (int i = 0; i < array.Length; i++)
-        {
-            array[i] = random.Next(1, 11); 
-        }
-    }
-    static void OutputArray(int[] array)
-    {
-        Console.ForegroundColor = ConsoleColor.Blue; // устанавливаем цвет
+        Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
+        int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         Console.WriteLine("Масив: ");
+        Console.WriteLine(String.Join(",", numbers));
         Console.ResetColor(); // сбрасываем в стандартный
-        foreach (int number in array)
+        int sum = 0;
+        for (int i = 0; i < numbers.Length; i += 2)
         {
-            Console.Write(number + " ");
+            sum += numbers[i];
         }
-        Console.WriteLine();
-    }
-    static int GenerateRandomNumber()
-    {
-        Random random = new Random();
-        return random.Next(1, 11); 
-    }
-    static void AddNumberToStart(int[] array, int element)
-    {
-        int[] newArray = new int[array.Length + 1];
-        newArray[0] = element;
-        Array.Copy(array, 0, newArray, 1, array.Length);
-        Array.Copy(newArray, array, array.Length);
+        Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
+        Console.WriteLine("Сума елементів на парних індексах: " + sum);
         Console.ReadKey();
     }
 }
