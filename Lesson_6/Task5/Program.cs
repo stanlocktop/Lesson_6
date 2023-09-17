@@ -20,7 +20,7 @@ class Program
             Console.Write($"Введіть оцінку студента Пирогов з предмету - {subjects[i]}: ");
             grades[i] = double.Parse(Console.ReadLine());
         }
-    //average
+        //average
         double sum = 0;
         for (int i = 0; i < numberOfSubjects; i++)
         {
