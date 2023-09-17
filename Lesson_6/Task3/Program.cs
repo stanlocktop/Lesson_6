@@ -50,7 +50,6 @@ class Program
         }
         Console.ResetColor(); // сбрасываем в стандартный
         Console.WriteLine();
-        // Виводимо результати
         Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
         Console.WriteLine("Кількість позитивних елементів матриці: " + positiveCount);
         Console.ResetColor(); // сбрасываем в стандартный
