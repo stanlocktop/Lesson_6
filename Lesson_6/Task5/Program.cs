@@ -11,19 +11,24 @@ namespace StudentGradeCalculator
             int choice;
 
             do
-            {
+            { 
+                Console.OutputEncoding = System.Text.Encoding.Unicode;
+                Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
                 Console.WriteLine("Оберіть опцію:");
-                Console.WriteLine("1. Ввести оцінки");
-                Console.WriteLine("2. Переглянути введені оцінки");
-                Console.WriteLine("3. Обчислити середню оцінку");
-                Console.WriteLine("4. Вийти");
+                Console.WriteLine("1. Ввести оцінки для студента Пирогов.");
+                Console.WriteLine("2. Переглянути введені оцінки студента Пирогов.");
+                Console.WriteLine("3. Обчислити середню оцінку предметів студента Пирогов.");
+                Console.WriteLine("4. Вийти з програми.");
+                Console.ResetColor(); // сбрасываем в стандартный
+                Console.ForegroundColor = ConsoleColor.Magenta; // устанавливаем цвет
                 Console.Write("Ваш вибір: ");
 
                 while (!int.TryParse(Console.ReadLine(), out choice))
+                    Console.ResetColor(); // сбрасываем в стандартный
+                Console.ForegroundColor = ConsoleColor.Red; // устанавливаем цвет
                 {
                     Console.WriteLine("Некоректний ввід. Будь ласка, введіть число від 1 до 4.");
                 }
-
                 switch (choice)
                 {
                     case 1:
@@ -36,7 +41,7 @@ namespace StudentGradeCalculator
                         CalculateAverage(grades);
                         break;
                     case 4:
-                        Console.WriteLine("Дякуємо за використання програми!");
+                        Console.WriteLine("Вихід!");
                         break;
                     default:
                         Console.WriteLine("Некоректний вибір. Будь ласка, оберіть опцію від 1 до 4.");
@@ -52,17 +57,18 @@ namespace StudentGradeCalculator
 
             foreach (string subject in subjects)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
                 Console.Write($"Введіть оцінку для предмету '{subject}': ");
                 while (true)
                 {
-                    if (double.TryParse(Console.ReadLine(), out double grade) && grade >= 0 && grade <= 100)
+                    if (double.TryParse(Console.ReadLine(), out double grade) && grade >= 1 && grade <= 12)
                     {
                         grades[subject] = grade;
                         break;
                     }
                     else
                     {
-                        Console.WriteLine("Некоректний ввід. Будь ласка, введіть дійсне число від 0 до 100.");
+                        Console.WriteLine("Некоректний ввід. Будь ласка, введіть дійсне число від 1 до 12.");
                         Console.Write($"Введіть оцінку для предмету '{subject}': ");
                     }
                 }
@@ -71,10 +77,12 @@ namespace StudentGradeCalculator
 
         static void DisplayGrades(Dictionary<string, double> grades)
         {
+            Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
             Console.WriteLine("Введені оцінки:");
-            foreach (var kvp in grades)
+            foreach (var input in grades)
             {
-                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+                Console.WriteLine($"{input.Key}: {input.Value}");
+                Console.ResetColor(); // сбрасываем в стандартный
             }
         }
 
@@ -87,9 +95,9 @@ namespace StudentGradeCalculator
             }
 
             double sum = 0;
-            foreach (var kvp in grades)
+            foreach (var input in grades)
             {
-                sum += kvp.Value;
+                sum += input.Value;
             }
             double averageGrade = sum / grades.Count;
 
