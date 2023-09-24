@@ -9,26 +9,22 @@ namespace StudentGradeCalculator
         {
             Dictionary<string, double> grades = new Dictionary<string, double>();
             int choice;
-
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
             do
-            { 
-                Console.OutputEncoding = System.Text.Encoding.Unicode;
-                Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
+            {
                 Console.WriteLine("Оберіть опцію:");
                 Console.WriteLine("1. Ввести оцінки для студента Пирогов.");
                 Console.WriteLine("2. Переглянути введені оцінки студента Пирогов.");
                 Console.WriteLine("3. Обчислити середню оцінку предметів студента Пирогов.");
                 Console.WriteLine("4. Вийти з програми.");
-                Console.ResetColor(); // сбрасываем в стандартный
-                Console.ForegroundColor = ConsoleColor.Magenta; // устанавливаем цвет
                 Console.Write("Ваш вибір: ");
 
                 while (!int.TryParse(Console.ReadLine(), out choice))
-                    Console.ResetColor(); // сбрасываем в стандартный
-                Console.ForegroundColor = ConsoleColor.Red; // устанавливаем цвет
                 {
                     Console.WriteLine("Некоректний ввід. Будь ласка, введіть число від 1 до 4.");
                 }
+
                 switch (choice)
                 {
                     case 1:
@@ -41,7 +37,7 @@ namespace StudentGradeCalculator
                         CalculateAverage(grades);
                         break;
                     case 4:
-                        Console.WriteLine("Вихід!");
+                        Console.WriteLine("Дякуємо за використання програми!");
                         break;
                     default:
                         Console.WriteLine("Некоректний вибір. Будь ласка, оберіть опцію від 1 до 4.");
@@ -57,18 +53,17 @@ namespace StudentGradeCalculator
 
             foreach (string subject in subjects)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
                 Console.Write($"Введіть оцінку для предмету '{subject}': ");
                 while (true)
                 {
-                    if (double.TryParse(Console.ReadLine(), out double grade) && grade >= 1 && grade <= 12)
+                    if (double.TryParse(Console.ReadLine(), out double grade) && grade >= 0 && grade <= 12)
                     {
                         grades[subject] = grade;
                         break;
                     }
                     else
                     {
-                        Console.WriteLine("Некоректний ввід. Будь ласка, введіть дійсне число від 1 до 12.");
+                        Console.WriteLine("Некоректний ввід. Будь ласка, введіть дійсне число від 0 до 100.");
                         Console.Write($"Введіть оцінку для предмету '{subject}': ");
                     }
                 }
@@ -77,12 +72,10 @@ namespace StudentGradeCalculator
 
         static void DisplayGrades(Dictionary<string, double> grades)
         {
-            Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
             Console.WriteLine("Введені оцінки:");
-            foreach (var input in grades)
+            foreach (var kvp in grades)
             {
-                Console.WriteLine($"{input.Key}: {input.Value}");
-                Console.ResetColor(); // сбрасываем в стандартный
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }
         }
 
@@ -95,12 +88,11 @@ namespace StudentGradeCalculator
             }
 
             double sum = 0;
-            foreach (var input in grades)
+            foreach (var kvp in grades)
             {
-                sum += input.Value;
+                sum += kvp.Value;
             }
             double averageGrade = sum / grades.Count;
-
             Console.WriteLine($"Середня оцінка: {averageGrade:F2}");
         }
     }
